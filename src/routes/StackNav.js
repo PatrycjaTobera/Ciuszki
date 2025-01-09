@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/Login/Login';
 import DrawerNav from './DrawerNav';
+import Registration from '../screens/Registration/Registration'
 const Stack = createNativeStackNavigator();
 
 const header = {
@@ -13,6 +14,7 @@ function StackNav() {
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={LoginScreen} options={header} />
       <Stack.Screen name="Main" component={DrawerNav} options={header} />
+      <Stack.Screen name="Registration" component={Registration} options={header} />
     </Stack.Navigator>
   );
 }

@@ -1,4 +1,16 @@
 {
+    "users": [
+    {
+      "id": 1,
+      "login": "abc",
+      "password": "$2a$10$Y5G7BQyKZlGLTdr4wq1Oi/y3FzXME1HmjEvNRfgZRZY5c7yWLZg4a"
+    },
+    {
+      "id": 2,
+      "login": "aa",
+      "password": "aa"
+    }
+  ],
     "ads": [
       {
         "id": 1,

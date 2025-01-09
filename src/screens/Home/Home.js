@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, Image, ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import styles from './styles';
+import {useBaseUrl} from '../../contexts/BaseUrlContext';
 
 function Home() {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true); 
 
-  const BASE_URL = 'http://192.168.0.15:5000'; //stały adres ip komputera w sieci lokalnej
+  const BASE_URL = useBaseUrl();
 
   const fetchAds = async () => {
     setLoading(true); 
