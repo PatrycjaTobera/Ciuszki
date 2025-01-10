@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Image, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import styles from './styles';
 import {useBaseUrl} from '../../contexts/BaseUrlContext';
 
-function Home() {
+function Home({navigation}) {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true); 
 
@@ -29,6 +29,10 @@ function Home() {
     }, [])
   );
 
+  const goToAd = (adId) => {
+    navigation.navigate('Ad', { adId }); 
+  };
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -41,7 +45,7 @@ function Home() {
           data={ads}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <View style={styles.card}>
+            <TouchableOpacity onPress={() => goToAd(item.id)} style={styles.card}>
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.description}>{item.description}</Text>
               <Text style={styles.price}>Cena: {item.price} PLN</Text>
@@ -59,7 +63,7 @@ function Home() {
                   );
                 })}
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}
