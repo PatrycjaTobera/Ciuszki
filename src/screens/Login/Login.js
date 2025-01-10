@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, Alert, Vibration } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import styles from './styles'; 
+import * as Crypto from 'expo-crypto';
+import { useBaseUrl } from '../../contexts/BaseUrlContext'; 
+import styles from './styles';
 
 function LoginScreen({ navigation }) {
   const [loginData, setLoginData] = useState({
@@ -9,34 +11,75 @@ function LoginScreen({ navigation }) {
     password: '',
   });
 
+  const BASE_URL = useBaseUrl(); 
+
   useEffect(() => {
     const loadLoginData = async () => {
-      const savedLogin = await SecureStore.getItemAsync('userLogin');
-      const savedPassword = await SecureStore.getItemAsync('userPassword');
-      if (savedLogin && savedPassword) {
-        setLoginData({ login: savedLogin, password: savedPassword });
+      try {
+        const savedData = await SecureStore.getItemAsync('userData');
+        if (savedData) {
+          const { login, password } = JSON.parse(savedData);
+          setLoginData({ login, password });
+        }
+      } catch (error) {
+        console.error('Błąd przy ładowaniu danych logowania:', error);
       }
     };
 
     loadLoginData();
   }, []);
 
+  const comparePasswords = async (inputPassword, storedPasswordHash) => {
+    try {
+      const inputPasswordHash = await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        inputPassword
+      );
+      if(inputPasswordHash === storedPasswordHash){
+        return true;
+      }
+      else{
+        return false;
+      }
+    } catch (error) {
+      console.error('Błąd podczas porównywania haseł:', error);
+      return false;
+    }
+  };
+  
   const login = async () => {
     if (loginData.login && loginData.password) {
-      if (loginData.password === loginData.login) {
-        await SecureStore.setItemAsync('userLogin', loginData.login);
-        await SecureStore.setItemAsync('userPassword', loginData.password);
-        navigation.navigate('Main'); 
-      } else {
-        Alert.alert('Błąd', 'Hasło nie zgadza się z loginem');
+      try {
+        const response = await fetch(`${BASE_URL}/users`); 
+        const users = await response.json(); 
+        
+        const user = users.find(user => user.login === loginData.login);
+
+        if (user) {
+          const isPasswordValid = await comparePasswords(loginData.password, user.password);
+          if (isPasswordValid) {
+            await SecureStore.setItemAsync('userData', JSON.stringify({ login: loginData.login, password: loginData.password }));
+            navigation.navigate('Main');
+          } else {
+            Vibration.vibrate(500);
+            Alert.alert('Błąd', 'Hasło jest niepoprawne');
+          }
+        } else {
+          Vibration.vibrate(500);
+          Alert.alert('Błąd', 'Użytkownik nie istnieje');
+        }
+      } catch (error) {
+        console.error('Błąd przy logowaniu:', error);
+        Alert.alert('Błąd', 'Wystąpił błąd przy logowaniu');
       }
     } else {
+      Vibration.vibrate(500);
       Alert.alert('Błąd', 'Wpisz oba: login i hasło');
     }
   };
 
   const goToRegistration = () => {
-    navigation.navigate('Registration'); 
+    navigation.navigate('Registration');
   };
 
   return (

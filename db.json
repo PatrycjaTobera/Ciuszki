@@ -1,83 +1,78 @@
 {
-    "users": [
+  "users": [
     {
-      "id": 1,
-      "login": "abc",
-      "password": "$2a$10$Y5G7BQyKZlGLTdr4wq1Oi/y3FzXME1HmjEvNRfgZRZY5c7yWLZg4a"
-    },
-    {
-      "id": 2,
-      "login": "aa",
-      "password": "aa"
+      "id": "595e",
+      "login": "A",
+      "password": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
     }
   ],
-    "ads": [
-      {
-        "id": 1,
-        "title": "Sprzedam nową kurtkę zimową",
-        "description": "Ciepła, wodoodporna kurtka idealna na zimowe dni. Stan idealny.",
-        "category": "Odzież",
-        "brand": "North Face",
-        "price": 350,
-        "size": "L",
-        "images": [
-          "kurtka1_front.jpg",
-          "kurtka1_back.jpg"
-        ]
-      },
-      {
-        "id": 2,
-        "title": "Bluza adidas",
-        "description": "Ciepła wiosenna bluza. Stan idealny. Mało używana.",
-        "category": "Odzież",
-        "brand": "Adidas",
-        "price": 100,
-        "size": "M",
-        "images": [
-          "bluza1_front.jpg",
-          "bluza1_back.jpg"
-        ]
-      },
-      {
-        "id": 3,
-        "title": "Używane spodenki",
-        "description": "Modne spodenki na lato, polecam.",
-        "category": "Odzież",
-        "brand": "Sport",
-        "price": 10,
-        "size": "M",
-        "images": [
-          "spodenki1.jpg"
-        ]
-      },
-      {
-        "id": 4,
-        "title": "Sprzedam używaną bluzę TechFleece Nike",
-        "description": "Bluza nike, rozpinana. Ślady użytkowania stan ogółem dobry.",
-        "category": "Odzież",
-        "brand": "Nike",
-        "price": 150,
-        "size": "L",
-        "images": [
-          "bluza_tech1.jpg",
-          "bluza_tech2.jpg",
-          "bluza_tech3.jpg",
-          "bluza_tech4.jpg",
-          "bluza_tech5.jpg"
-        ]
-      },
-      {
-        "id": 5,
-        "title": "Sprzedam nową kurtkę zimową",
-        "description": "Ciepła, wodoodporna kurtka idealna na zimowe dni. Stan idealny.",
-        "category": "Odzież",
-        "brand": "North Face",
-        "price": 350,
-        "size": "L",
-        "images": [
-          "kurtka1_front.jpg",
-          "kurtka1_back.jpg"
-        ]
-      }
-    ]
-  }
+  "ads": [
+    {
+      "id": "1",
+      "title": "Sprzedam nową kurtkę zimową",
+      "description": "Ciepła, wodoodporna kurtka idealna na zimowe dni. Stan idealny.",
+      "category": "Odzież",
+      "brand": "North Face",
+      "price": 350,
+      "size": "L",
+      "images": [
+        "kurtka1_front.jpg",
+        "kurtka1_back.jpg"
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Bluza adidas",
+      "description": "Ciepła wiosenna bluza. Stan idealny. Mało używana.",
+      "category": "Odzież",
+      "brand": "Adidas",
+      "price": 100,
+      "size": "M",
+      "images": [
+        "bluza1_front.jpg",
+        "bluza1_back.jpg"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Używane spodenki",
+      "description": "Modne spodenki na lato, polecam.",
+      "category": "Odzież",
+      "brand": "Sport",
+      "price": 10,
+      "size": "M",
+      "images": [
+        "spodenki1.jpg"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Sprzedam używaną bluzę TechFleece Nike",
+      "description": "Bluza nike, rozpinana. Ślady użytkowania stan ogółem dobry.",
+      "category": "Odzież",
+      "brand": "Nike",
+      "price": 150,
+      "size": "L",
+      "images": [
+        "bluza_tech1.jpg",
+        "bluza_tech2.jpg",
+        "bluza_tech3.jpg",
+        "bluza_tech4.jpg",
+        "bluza_tech5.jpg"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Sprzedam nową kurtkę zimową",
+      "description": "Ciepła, wodoodporna kurtka idealna na zimowe dni. Stan idealny.",
+      "category": "Odzież",
+      "brand": "North Face",
+      "price": 350,
+      "size": "L",
+      "images": [
+        "kurtka1_front.jpg",
+        "kurtka1_back.jpg"
+      ]
+    }
+  ]
+}
