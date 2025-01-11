@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, Alert, Vibration } from 'react-native';
 import * as Crypto from 'expo-crypto';
 import { useBaseUrl } from '../../contexts/BaseUrlContext';
