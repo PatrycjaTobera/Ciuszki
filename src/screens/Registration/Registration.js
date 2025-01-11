@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, Alert, Vibration } from 'react-native';
 import * as Crypto from 'expo-crypto';
 import { useBaseUrl } from '../../contexts/BaseUrlContext';
@@ -89,6 +90,10 @@ function Registration({ navigation }) {
 
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Zarejestruj się</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.buttonText}>Powrót do logowania</Text>
       </TouchableOpacity>
     </View>
   );
