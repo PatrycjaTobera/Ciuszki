@@ -1,9 +1,12 @@
 {
   "users": [
     {
-      "id": "595e",
-      "login": "A",
-      "password": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd"
+      "id": "e7a9",
+      "login": "Patrycja",
+      "password": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "balance": 52,
+      "about": "Profile🙋🏼‍♀️",
+      "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1736613882/photos/nykbtydmv0g3iv2o44fv.jpg"
     }
   ],
   "ads": [
