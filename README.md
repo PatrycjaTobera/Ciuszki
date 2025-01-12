@@ -22,3 +22,5 @@ npm install @react-navigation/bottom-tabs
 
 npm install @react-navigation/drawer
 
+npm install @react-native-picker/picker
+

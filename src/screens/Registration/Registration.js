@@ -36,6 +36,9 @@ function Registration({ navigation }) {
       const newUser = {
         login,
         password: hashedPassword,
+        balance: 0,
+        about: '',
+        profilePicture: ''
       };
 
       const response = await fetch(`${BASE_URL}/users`, { 

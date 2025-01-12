@@ -7,6 +7,14 @@
       "balance": 52,
       "about": "Profile🙋🏼‍♀️",
       "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1736613882/photos/nykbtydmv0g3iv2o44fv.jpg"
+    },
+    {
+      "id": "fefe",
+      "login": "A",
+      "password": "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+      "balance": 0,
+      "about": "",
+      "profilePicture": ""
     }
   ],
   "ads": [
@@ -75,6 +83,18 @@
       "images": [
         "kurtka1_front.jpg",
         "kurtka1_back.jpg"
+      ]
+    },
+    {
+      "id": "ed2e",
+      "title": "Aff",
+      "description": "Sdgh",
+      "price": 25,
+      "category": "Odzież",
+      "brand": "Fvbj",
+      "size": "S",
+      "images": [
+        "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FCiuszki-e75b555c-5f3b-488c-add7-3dc9fe69c959/ImagePicker/61267b8c-6fbe-408b-936b-8d3de8a3237c.jpeg"
       ]
     }
   ]
