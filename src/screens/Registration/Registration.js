@@ -38,7 +38,8 @@ function Registration({ navigation }) {
         password: hashedPassword,
         balance: 0,
         about: '',
-        profilePicture: ''
+        profilePicture: '',
+        ads: []
       };
 
       const response = await fetch(`${BASE_URL}/users`, { 

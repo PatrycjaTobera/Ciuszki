@@ -24,3 +24,12 @@ npm install @react-navigation/drawer
 
 npm install @react-native-picker/picker
 
+npm install -g json-server
+
+npm install @react-native-async-storage/async-storage
+
+npm install expo-image-picker 
+
+npm install axios
+
+json-server --watch db.json --static ./images --port 5000

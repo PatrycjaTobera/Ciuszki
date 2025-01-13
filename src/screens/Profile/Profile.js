@@ -54,29 +54,26 @@ function Profile() {
   const onSubmit = async data => {
     if (user) {
       setIsEditing(false);
-      const updatedUserData = {
-        ...user,
-        about: data.about,
-        profilePicture, 
-      };
-
+  
       try {
-        const response = await axios.put(`${BASE_URL}/users/${user.id}`, updatedUserData, { 
+        user.about = data.about;
+        user.profilePicture = profilePicture;
+  
+        const response = await axios.put(`${BASE_URL}/users/${user.id}`, user, { 
           headers: {
             'Content-Type': 'application/json',
           },
         });
-
+  
         if (response.status !== 200) {
           throw new Error('Błąd podczas zapisywania danych na serwerze.');
         }
-
       } catch (error) {
         console.error('Błąd podczas zapisywania danych:', error);
       }
     }
   };
-
+  
   const handleEdit = () => {
     setIsEditing(true);
   };
@@ -87,13 +84,13 @@ function Profile() {
       Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do galerii!');
       return;
     }
-
+  
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images, 
       allowsEditing: true,
       quality: 1,
     });
-
+  
     if (!result.canceled) {
       const imageUri = result.assets[0].uri;
       try {
@@ -104,33 +101,34 @@ function Profile() {
           name: 'profile_picture.jpg',
         });
         formData.append('upload_preset', UPLOAD_PRESET);
-
+  
         const uploadResponse = await axios.post(CLOUDINARY_URL, formData, { 
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-
+  
         if (uploadResponse.status === 200) {
           const uploadedImageUrl = uploadResponse.data.secure_url; 
-          setProfilePicture(uploadedImageUrl); 
-
+          setProfilePicture(uploadedImageUrl);
+  
           if (user) {
-            const updatedUserData = {
-              ...user,
-              profilePicture: uploadedImageUrl, 
-            };
-
-            const updateResponse = await axios.put(`${BASE_URL}/users/${user.id}`, updatedUserData, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-
-            if (updateResponse.status === 200) {
-              console.log('Zaktualizowano profil użytkownika z nowym obrazem');
-            } else {
-              throw new Error('Błąd podczas zapisywania obrazu na serwerze');
+            try {
+              user.profilePicture = uploadedImageUrl;
+  
+              const updateResponse = await axios.put(`${BASE_URL}/users/${user.id}`, user, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+  
+              if (updateResponse.status === 200) {
+                console.log('Zaktualizowano profil użytkownika z nowym obrazem');
+              } else {
+                throw new Error('Błąd podczas zapisywania obrazu na serwerze');
+              }
+            } catch (error) {
+              console.error('Błąd podczas zapisywania obrazu:', error);
             }
           }
         } else {
@@ -141,7 +139,7 @@ function Profile() {
         Alert.alert('Błąd', 'Nie udało się przesłać obrazu. Spróbuj ponownie.');
       }
     }
-  };
+  };  
 
   if (!user) {
     return <Text>Ładowanie danych użytkownika...</Text>;

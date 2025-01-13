@@ -36,25 +36,26 @@ function Wallet() {
 
   const updateBalanceInDB = async (newBalance) => {
     if (user) {
-      const updatedUser = { ...user, balance: newBalance };
-
       try {
+        user.balance = newBalance;
+  
         const response = await fetch(`${BASE_URL}/users/${user.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(updatedUser),
+          body: JSON.stringify(user), 
         });
-
+  
         if (!response.ok) {
           throw new Error('Błąd podczas zapisywania salda na serwerze.');
         }
       } catch (error) {
+        console.error('Błąd podczas zapisywania salda:', error);
       }
     }
   };
-
+  
   const addToBalance = () => {
     const value = parseFloat(inputValue.replace(',', '.'));
     const regex = /^\d+(\.\d{1,2})?$/;
