@@ -7,9 +7,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 16,
+    color: '#333',
+    paddingTop: 25,
   },
   conversationItem: {
     padding: 16,

@@ -1,20 +1,52 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 import styles from './styles';
 import { useBaseUrl } from '../../contexts/BaseUrlContext';
 
 function Home({ navigation }) {
   const [ads, setAds] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const BASE_URL = useBaseUrl();
-  const fetchAds = async () => {
+
+  const fetchLoggedInUser = async () => {
+    try {
+      const savedUserData = await SecureStore.getItemAsync('userData');
+      if (savedUserData) {
+        const { login } = JSON.parse(savedUserData);
+        const response = await fetch(`${BASE_URL}/users`);
+        const users = await response.json();
+        const user = users.find((u) => u.login === login);
+        setLoggedInUser(user);
+      } else {
+        Alert.alert('Błąd', 'Nie udało się załadować danych użytkownika.');
+      }
+    } catch (error) {
+      console.error('Błąd przy ładowaniu danych użytkownika:', error);
+      Alert.alert('Błąd', 'Nie udało się załadować danych użytkownika.');
+    }
+  };
+
+  const fetchAds = async (user) => {
     setLoading(true);
     try {
       const response = await fetch(`${BASE_URL}/ads`);
-      const data = await response.json();
-      setAds(data);
+      const adsData = await response.json();
+      const usersResponse = await fetch(`${BASE_URL}/users`);
+      const users = await usersResponse.json();
+
+      const allOrders = users.reduce((orders, u) => {
+        return [...orders, ...u.orders];
+      }, []);
+
+      const filteredAds = adsData.filter((ad) => !allOrders.includes(ad.id));
+
+      const finalAds = user ? filteredAds.filter((ad) => !(user.ads || []).includes(ad.id)) : filteredAds;
+
+      setAds(finalAds);
     } catch (error) {
       console.error('Error fetching ads:', error);
     } finally {
@@ -24,9 +56,18 @@ function Home({ navigation }) {
 
   useFocusEffect(
     React.useCallback(() => {
-      fetchAds();
+      const loadData = async () => {
+        await fetchLoggedInUser();
+      };
+      loadData();
     }, [])
   );
+
+  useEffect(() => {
+    if (loggedInUser) {
+      fetchAds(loggedInUser);
+    }
+  }, [loggedInUser]);
 
   const goToAd = (adId) => {
     navigation.navigate('Ad', { adId });

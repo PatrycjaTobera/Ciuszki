@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fc20a4',
     marginBottom: 5,
   },
   size: {

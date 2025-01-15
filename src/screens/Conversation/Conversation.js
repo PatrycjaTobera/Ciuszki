@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, Button } from 'react-native';
+import { View, Text, FlatList, TextInput, TouchableOpacity } from 'react-native';
 import { useBaseUrl } from '../../contexts/BaseUrlContext';
 import { useUser } from '../../contexts/UserContext'; 
 import styles from './styles';
@@ -70,7 +70,7 @@ function Conversation({ route }) {
       if (response.ok) {
         const updatedMessage = await response.json(); 
         setMessages((prevMessages) => [...prevMessages, updatedMessage]);
-        setNewMessage('');
+        setNewMessage(''); 
       } else {
         console.error('Błąd wysyłania wiadomości');
       }
@@ -95,7 +95,9 @@ function Conversation({ route }) {
               style={styles.input}
               placeholder="Napisz wiadomość..."
             />
-            <Button title="Wyślij" onPress={sendMessage} />
+            <TouchableOpacity style={styles.button} onPress={sendMessage}>
+              <Text style={styles.buttonText}>Wyślij</Text>
+            </TouchableOpacity>
           </View>
         </>
       ) : (

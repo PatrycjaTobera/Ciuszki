@@ -28,8 +28,13 @@ function YourAds({ navigation }) {
 
         if (loggedInUser) {
           const userAdsIds = loggedInUser.ads || [];
-          const filteredAds = ads.filter(ad => userAdsIds.includes(ad.id));
-          setUserAds(filteredAds);
+          
+          const userAdsWithStatus = ads.filter(ad => userAdsIds.includes(ad.id)).map(ad => {
+            const isSold = users.some(user => user.orders && user.orders.includes(ad.id));
+            return { ...ad, isSold }; 
+          });
+          
+          setUserAds(userAdsWithStatus);
         }
       }
     } catch (error) {
@@ -52,7 +57,6 @@ function YourAds({ navigation }) {
   const handleEdit = (adId) => {
     navigation.navigate('EditAd', { adId });
   };
-
 
   const handleDelete = async (adId) => {
     Alert.alert(
@@ -133,20 +137,26 @@ function YourAds({ navigation }) {
               </View>
             </TouchableOpacity>
             <View style={styles.buttonContainer}>
-              <Button
-                mode="contained"
-                onPress={() => handleEdit(item.id)}
-                style={styles.editButton}
-              >
-                Edytuj
-              </Button>
-              <Button
-                mode="contained"
-                onPress={() => handleDelete(item.id)}
-                style={styles.deleteButton}
-              >
-                Usuń
-              </Button>
+              {item.isSold ? (
+                <Text style={styles.soldText}>Sprzedane</Text>
+              ) : (
+                <>
+                  <Button
+                    mode="contained"
+                    onPress={() => handleEdit(item.id)}
+                    style={styles.editButton}
+                  >
+                    Edytuj
+                  </Button>
+                  <Button
+                    mode="contained"
+                    onPress={() => handleDelete(item.id)}
+                    style={styles.deleteButton}
+                  >
+                    Usuń
+                  </Button>
+                </>
+              )}
             </View>
           </View>
         )}

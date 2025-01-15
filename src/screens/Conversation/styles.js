@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#f9f9f9',
-    marginTop:25,
+    marginTop: 25,
   },
   header: {
     fontSize: 24,
@@ -60,6 +60,21 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     marginRight: 10,
+  },
+  button: {
+    width: '20%',
+    marginTop: 20,
+    backgroundColor: '#fc20a4',
+    alignSelf: 'center',
+    borderRadius: 4,
+    padding: 7,
+    bottom: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

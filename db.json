@@ -4,15 +4,16 @@
       "id": "e7a9",
       "login": "Patrycja",
       "password": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
-      "balance": 52,
+      "balance": 0,
       "about": "Profil🙋🏼‍♀️",
       "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1736613882/photos/nykbtydmv0g3iv2o44fv.jpg",
       "ads": [
-        "4d94",
         "cee8",
         "2c48"
       ],
-      "orders": []
+      "orders": [
+        "db46"
+      ]
     },
     {
       "id": "243d",
@@ -23,21 +24,22 @@
       "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1736965035/photos/laywd7ft9q5kye9reytm.jpg",
       "ads": [],
       "orders": []
+    },
+    {
+      "id": "58e0",
+      "login": "Lukasz",
+      "password": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "balance": 0,
+      "about": "",
+      "profilePicture": "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+      "ads": [
+        "24ce",
+        "db46"
+      ],
+      "orders": []
     }
   ],
   "ads": [
-    {
-      "id": "4d94",
-      "title": "Bluzka fajna",
-      "description": "Biala",
-      "price": 15.01,
-      "category": "Odzież",
-      "brand": "Zara",
-      "size": "M",
-      "images": [
-        "https://res.cloudinary.com/djgma8pik/image/upload/v1736870929/photos/p99i8iduhruttq8exsbs.jpg"
-      ]
-    },
     {
       "id": "cee8",
       "title": "Fajne leganckie spodenki na lato",
@@ -61,6 +63,30 @@
       "size": "M",
       "images": [
         "https://res.cloudinary.com/djgma8pik/image/upload/v1736962401/photos/h9d5yo7kchjvuynm2xgf.jpg"
+      ]
+    },
+    {
+      "id": "24ce",
+      "title": "Szalik",
+      "description": "Piękny biały szalik, bardzo ciepły, miły materiał",
+      "price": 35,
+      "category": "Akcesoria",
+      "brand": "Stradivarius ",
+      "images": [
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1736979605/photos/drj4lpio3caxjkdxau9r.jpg"
+      ]
+    },
+    {
+      "id": "db46",
+      "title": "Bluzka",
+      "description": "Biała, letnia",
+      "price": 20,
+      "category": "Odzież",
+      "brand": "H&M",
+      "size": "S",
+      "images": [
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1736980055/photos/mrywrqf5rxvhku83drel.jpg",
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1736980059/photos/ti4giedmidgymvgx9slc.jpg"
       ]
     }
   ],

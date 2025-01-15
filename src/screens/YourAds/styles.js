@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fc20a4',
     marginBottom: 5,
   },
   size: {
@@ -79,7 +79,14 @@ const styles = StyleSheet.create({
   deleteButton: {
     flex: 0.48,
     backgroundColor: '#d9534f',
-  }  
+  } , 
+  soldText: {
+    fontSize: 24,      
+    color: '#fc20a4',            
+    fontWeight: 'bold',
+    textAlign: 'center',     
+    marginVertical: 20,     
+  }
 });
 
 export default styles;
