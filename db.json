@@ -8,78 +8,22 @@
       "about": "Profil🙋🏼‍♀️",
       "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1736613882/photos/nykbtydmv0g3iv2o44fv.jpg",
       "ads": [
-        "4d94"
+        "4d94",
+        "cee8",
+        "2c48"
       ]
+    },
+    {
+      "id": "243d",
+      "login": "Aa",
+      "password": "81acaafba961bb831ec40eb965155e3486392c60cfb8c75150beaf2caffc244a",
+      "balance": 0,
+      "about": "",
+      "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1736965035/photos/laywd7ft9q5kye9reytm.jpg",
+      "ads": []
     }
   ],
   "ads": [
-    {
-      "id": "1",
-      "title": "Sprzedam nową kurtkę zimową",
-      "description": "Ciepła, wodoodporna kurtka idealna na zimowe dni. Stan idealny.",
-      "category": "Odzież",
-      "brand": "North Face",
-      "price": 350,
-      "size": "L",
-      "images": [
-        "kurtka1_front.jpg",
-        "kurtka1_back.jpg"
-      ]
-    },
-    {
-      "id": "2",
-      "title": "Bluza adidas",
-      "description": "Ciepła wiosenna bluza. Stan idealny. Mało używana.",
-      "category": "Odzież",
-      "brand": "Adidas",
-      "price": 100,
-      "size": "M",
-      "images": [
-        "bluza1_front.jpg",
-        "bluza1_back.jpg"
-      ]
-    },
-    {
-      "id": "3",
-      "title": "Używane spodenki",
-      "description": "Modne spodenki na lato, polecam.",
-      "category": "Odzież",
-      "brand": "Sport",
-      "price": 10,
-      "size": "M",
-      "images": [
-        "spodenki1.jpg"
-      ]
-    },
-    {
-      "id": "4",
-      "title": "Sprzedam używaną bluzę TechFleece Nike",
-      "description": "Bluza nike, rozpinana. Ślady użytkowania stan ogółem dobry.",
-      "category": "Odzież",
-      "brand": "Nike",
-      "price": 150,
-      "size": "L",
-      "images": [
-        "bluza_tech1.jpg",
-        "bluza_tech2.jpg",
-        "bluza_tech3.jpg",
-        "bluza_tech4.jpg",
-        "bluza_tech5.jpg"
-      ]
-    },
-    {
-      "id": "5",
-      "title": "Sprzedam nową kurtkę zimową",
-      "description": "Ciepła, wodoodporna kurtka idealna na zimowe dni. Stan idealny.",
-      "category": "Odzież",
-      "brand": "North Face",
-      "price": 350,
-      "size": "L",
-      "images": [
-        "kurtka1_front.jpg",
-        "kurtka1_back.jpg"
-      ]
-    },
     {
       "id": "4d94",
       "title": "Bluzka fajna",
@@ -91,6 +35,75 @@
       "images": [
         "https://res.cloudinary.com/djgma8pik/image/upload/v1736870929/photos/p99i8iduhruttq8exsbs.jpg"
       ]
+    },
+    {
+      "id": "cee8",
+      "title": "Fajne leganckie spodenki na lato",
+      "description": "Leganckie spodenki idealne na lato",
+      "price": 25,
+      "category": "Odzież",
+      "brand": "Sports",
+      "size": "M",
+      "images": [
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1736961186/photos/ukm0xvvq7c5fx5dgy4nq.jpg",
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1736961200/photos/rpgxixzxay1yhzjtfypr.jpg"
+      ]
+    },
+    {
+      "id": "2c48",
+      "title": "Bluza",
+      "description": "Nike bluza ",
+      "price": 20,
+      "category": "Odzież",
+      "brand": "Nike",
+      "size": "M",
+      "images": [
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1736962401/photos/h9d5yo7kchjvuynm2xgf.jpg"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "id": "81ac",
+      "conversationId": "e7a9_243d",
+      "senderId": "243d",
+      "content": "Czy ogłoszenie aktualne?",
+      "timestamp": "2025-01-15T19:36:48.179Z"
+    },
+    {
+      "id": "81ad",
+      "conversationId": "e7a9_243d",
+      "senderId": "e7a9",
+      "content": "Tak ogłoszenie jest aktualne",
+      "timestamp": "2025-01-15T19:36:48.179Z"
+    },
+    {
+      "id": "629f",
+      "conversationId": "e7a9_243d",
+      "senderId": "243d",
+      "content": "Nowa wiadomość ",
+      "timestamp": "2025-01-15T19:52:15.926Z"
+    },
+    {
+      "id": "f8d5",
+      "conversationId": "e7a9_243d",
+      "senderId": "243d",
+      "content": "Nowa wiadomość 2",
+      "timestamp": "2025-01-15T19:55:58.485Z"
+    },
+    {
+      "id": "d277",
+      "conversationId": "e7a9_243d",
+      "senderId": "e7a9",
+      "content": "Wiadomość od Patrycja",
+      "timestamp": "2025-01-15T20:21:58.711Z"
+    },
+    {
+      "id": "de6d",
+      "conversationId": "e7a9_243d",
+      "senderId": "243d",
+      "content": "Wiadomość ",
+      "timestamp": "2025-01-15T20:46:12.589Z"
     }
   ]
 }
