@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import styles from './styles';
-import {useBaseUrl} from '../../contexts/BaseUrlContext';
+import { useBaseUrl } from '../../contexts/BaseUrlContext';
 
-function Home({navigation}) {
+function Home({ navigation }) {
   const [ads, setAds] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   const BASE_URL = useBaseUrl();
-
   const fetchAds = async () => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const response = await fetch(`${BASE_URL}/ads`);
       const data = await response.json();
-      setAds(data); 
+      setAds(data);
     } catch (error) {
       console.error('Error fetching ads:', error);
     } finally {
@@ -30,7 +29,7 @@ function Home({navigation}) {
   );
 
   const goToAd = (adId) => {
-    navigation.navigate('Ad', { adId }); 
+    navigation.navigate('Ad', { adId });
   };
 
   return (
@@ -53,11 +52,11 @@ function Home({navigation}) {
               <Text style={styles.brand}>Marka: {item.brand}</Text>
               <View style={styles.images}>
                 {item.images.map((image, index) => {
-                  const isLocalImage = image.startsWith('file://');
+                  const imageUrl = image.startsWith('http') ? image : `https://res.cloudinary.com/your-cloud-name/image/upload/${image}`;
                   return (
                     <Image
                       key={index}
-                      source={{ uri: isLocalImage ? image : `${BASE_URL}/${image}` }}
+                      source={{ uri: imageUrl }}
                       style={styles.image}
                     />
                   );
