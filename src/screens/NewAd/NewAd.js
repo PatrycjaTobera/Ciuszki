@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image, Alert, ScrollView, Vibration, Modal, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
-import * as ImagePicker from 'expo-image-picker';  
-import axios from 'axios'; 
+import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
 import { useBaseUrl } from '../../contexts/BaseUrlContext';
 import styles from './styles';
 
@@ -19,12 +20,37 @@ function NewAd() {
   const [images, setImages] = useState([]);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [sizeModalVisible, setSizeModalVisible] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const categories = ['Odzież', 'Akcesoria'];
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const BASE_URL = useBaseUrl();
 
-  const loggedUserId = "e7a9";
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        const savedUserData = await SecureStore.getItemAsync('userData');
+        if (savedUserData) {
+          const { login } = JSON.parse(savedUserData);
+
+          const response = await axios.get(`${BASE_URL}/users`);
+          const users = response.data;
+          const user = users.find((u) => u.login === login);
+
+          if (user) {
+            setLoggedInUser(user);
+          } else {
+            Alert.alert('Błąd', 'Nie znaleziono zalogowanego użytkownika.');
+          }
+        }
+      } catch (error) {
+        console.error('Błąd przy ładowaniu danych użytkownika:', error);
+        Alert.alert('Błąd', 'Nie udało się załadować danych użytkownika.');
+      }
+    };
+
+    loadUserData();
+  }, []);
 
   const handleImageUpload = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -58,7 +84,7 @@ function NewAd() {
             });
 
             if (response.status === 200) {
-              return response.data.secure_url; 
+              return response.data.secure_url;
             } else {
               throw new Error('Nie udało się przesłać obrazu.');
             }
@@ -73,66 +99,48 @@ function NewAd() {
     }
   };
 
-  const removeImage = (indexToRemove) => {
-    setImages(images.filter((_, index) => index !== indexToRemove));
-  };
-
   const handleSubmit = async () => {
     const priceValue = parseFloat(price.replace(',', '.'));
     const priceRegex = /^\d+(\.\d{1,2})?$/;
-
+  
     if (!title || !description || !price || !brand || images.length === 0) {
       Vibration.vibrate(500);
       Alert.alert('Błąd', 'Wszystkie pola muszą być wypełnione, w tym dodanie przynajmniej jednego zdjęcia.');
       return;
     }
-
+  
     if (!priceRegex.test(price.replace(',', '.')) || priceValue <= 0) {
       Alert.alert('Błąd', 'Cena musi być liczbą większą od 0 i zawierać maksymalnie dwie liczby po przecinku.');
       return;
     }
-
+  
     const newAd = {
       title,
       description,
       price: priceValue,
       category,
       brand,
-      ...(size && { size }), 
+      ...(size && { size }),
       images,
     };
-
+  
     try {
-      const adResponse = await fetch(`${BASE_URL}/ads`, {
-        method: 'POST',
+      const adResponse = await axios.post(`${BASE_URL}/ads`, newAd, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newAd),
       });
-
-      if (adResponse.ok) {
-        const adData = await adResponse.json(); 
-        const adId = adData.id;
-
-        const userResponse = await fetch(`${BASE_URL}/users/${loggedUserId}`);
-        if (!userResponse.ok) {
-          throw new Error('Nie udało się pobrać danych użytkownika.');
-        }
-
-        const userData = await userResponse.json();
-        const updatedAds = userData.ads ? [...userData.ads, adId] : [adId];
-
-        const updateUserResponse = await fetch(`${BASE_URL}/users/${loggedUserId}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ ads: updatedAds }),
+  
+      if (adResponse.status === 201) {
+        const adData = adResponse.data;
+        const updatedAds = [...(loggedInUser.ads || []), adData.id];
+        const userUpdateResponse = await axios.patch(`${BASE_URL}/users/${loggedInUser.id}`, {
+          ads: updatedAds,
         });
 
-        if (updateUserResponse.ok) {
-          alert('Ogłoszenie zostało dodane!');
+  
+        if (userUpdateResponse.status === 200) {
+          Alert.alert('Sukces', 'Ogłoszenie zostało dodane!');
           setTitle('');
           setDescription('');
           setPrice('');
@@ -140,16 +148,17 @@ function NewAd() {
           setSize('');
           setImages([]);
         } else {
-          throw new Error('Nie udało się przypisać ogłoszenia do użytkownika.');
+          throw new Error('Nie udało się zaktualizować użytkownika.');
         }
       } else {
         throw new Error('Nie udało się dodać ogłoszenia.');
       }
     } catch (error) {
       console.error('Błąd dodawania ogłoszenia:', error);
-      alert('Wystąpił błąd przy dodawaniu ogłoszenia.');
+      Alert.alert('Błąd', `Wystąpił błąd przy dodawaniu ogłoszenia: ${error.message}`);
     }
   };
+  
 
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);

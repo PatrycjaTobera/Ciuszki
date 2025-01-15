@@ -7,6 +7,9 @@ import Ad from '../screens/Ad/Ad';
 import EditAd from '../screens/EditAd/EditAd';
 import Chat from '../screens/Chat/Chat';
 import Conversation from '../screens/Conversation/Conversation';
+import Basket from '../screens/Basket/Basket';
+import Payment from '../screens/Payment/Payment';
+
 const Stack = createNativeStackNavigator();
 
 const header = {
@@ -23,6 +26,8 @@ function StackNav() {
       <Stack.Screen name="EditAd" component={EditAd} options={header} />
       <Stack.Screen name="Chat" component={Chat} options={header} />
       <Stack.Screen name="Conversation" component={Conversation} options={header} />
+      <Stack.Screen name="Basket" component={Basket} options={header} />
+      <Stack.Screen name="Payment" component={Payment} options={header} />
     </Stack.Navigator>
   );
 }

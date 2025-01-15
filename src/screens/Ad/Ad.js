@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, ScrollView, Dimensions, TouchableOpacity, Button } from 'react-native';
+import { View, Text, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { useBaseUrl } from '../../contexts/BaseUrlContext';
 import styles from './styles';
 
@@ -36,6 +36,13 @@ function Ad({ route, navigation }) {
     setCurrentIndex(index);
   };
 
+  const handleAddToBasket = () => {
+    navigation.navigate('Basket', {
+      adToAdd: ad, 
+    });
+  };
+  
+
   if (!ad) {
     return (
       <View style={styles.loadingContainer}>
@@ -67,7 +74,7 @@ function Ad({ route, navigation }) {
         {ad.images.map((_, index) => (
           <View
             key={index}
-            style={[
+            style={[ 
               styles.imageIndicator,
               {
                 backgroundColor: index === currentIndex ? '#fc20a4' : '#d3d3d3',
@@ -99,6 +106,7 @@ function Ad({ route, navigation }) {
           </Text>
         </View>
       )}
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
@@ -106,11 +114,14 @@ function Ad({ route, navigation }) {
         >
           <Text style={styles.buttonText}>Napisz do sprzedającego</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleAddToBasket} 
+        >
           <Text style={styles.buttonText}>Dodaj do koszyka</Text>
         </TouchableOpacity>
       </View>
-
     </ScrollView>
   );
 }
