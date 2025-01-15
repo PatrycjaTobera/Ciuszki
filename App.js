@@ -3,13 +3,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 import StackNav from './src/routes/StackNav';
 import {BaseUrlProvider} from './src/contexts/BaseUrlContext';
+import { UserProvider } from './src/contexts/UserContext';
 
 function App() {
   return (
     <NavigationContainer>
       <PaperProvider>
         <BaseUrlProvider>
-            <StackNav />
+            <UserProvider>
+              <StackNav/>
+            </UserProvider>
           </BaseUrlProvider>
       </PaperProvider>
     </NavigationContainer>
