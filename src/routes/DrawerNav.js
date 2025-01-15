@@ -8,16 +8,18 @@ import Wallet from '../screens/Wallet/Wallet';
 import Settings from '../screens/Settings/Settings';
 import OrderHistory from '../screens/OrderHistory/OrderHistory';
 import YourAds from '../screens/YourAds/YourAds';
-
+import { useUser } from '../contexts/UserContext'; 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
   const { navigation } = props;
+  const { logout } = useUser();
 
   const handleLogOut = async () => {
     try {
       await SecureStore.deleteItemAsync('userLogin');
       await SecureStore.deleteItemAsync('userPassword');
+      logout();
     } finally {
       navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
     }

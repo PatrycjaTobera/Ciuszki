@@ -3,6 +3,7 @@ import { View, TextInput, Text, TouchableOpacity, Alert, Vibration } from 'react
 import * as SecureStore from 'expo-secure-store';
 import * as Crypto from 'expo-crypto';
 import { useBaseUrl } from '../../contexts/BaseUrlContext'; 
+import { useUser } from '../../contexts/UserContext';
 import styles from './styles';
 
 function LoginScreen({ navigation }) {
@@ -10,7 +11,7 @@ function LoginScreen({ navigation }) {
     login: '',
     password: '',
   });
-
+  const { loginUser } = useUser();
   const BASE_URL = useBaseUrl(); 
 
   useEffect(() => {
@@ -59,6 +60,7 @@ function LoginScreen({ navigation }) {
           const isPasswordValid = await comparePasswords(loginData.password, user.password);
           if (isPasswordValid) {
             await SecureStore.setItemAsync('userData', JSON.stringify({ login: loginData.login, password: loginData.password }));
+            loginUser(user);
             navigation.navigate('Main');
           } else {
             Vibration.vibrate(500);
