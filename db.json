@@ -8,9 +8,7 @@
       "about": "Profil🙋🏼‍♀️",
       "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1736613882/photos/nykbtydmv0g3iv2o44fv.jpg",
       "ads": [
-        "9dfa",
-        "4020",
-        "0ff4"
+        "4d94"
       ]
     }
   ],
@@ -83,39 +81,15 @@
       ]
     },
     {
-      "id": "9dfa",
-      "title": "Bluzka",
-      "description": "Biała, krótka, nowa",
-      "price": 25.99,
+      "id": "4d94",
+      "title": "Bluzka fajna",
+      "description": "Biala",
+      "price": 15.01,
       "category": "Odzież",
       "brand": "Zara",
-      "size": "S",
+      "size": "M",
       "images": [
-        "https://res.cloudinary.com/djgma8pik/image/upload/v1736789736/photos/p9gjzgb4xe6u0erouve9.jpg",
-        "https://res.cloudinary.com/djgma8pik/image/upload/v1736789735/photos/gi6vlms3ya3e6i9tx6ad.jpg"
-      ]
-    },
-    {
-      "id": "4020",
-      "title": "Torebka",
-      "description": "Nowa czarna",
-      "price": 50,
-      "category": "Akcesoria",
-      "brand": "Zara",
-      "images": [
-        "https://res.cloudinary.com/djgma8pik/image/upload/v1736790445/photos/iwsvkmkxusjmrngxxtfl.jpg"
-      ]
-    },
-    {
-      "id": "0ff4",
-      "title": "Kurtka",
-      "description": "Czarna skórzana",
-      "price": 47,
-      "category": "Odzież",
-      "brand": "Stradivarius ",
-      "size": "XS",
-      "images": [
-        "https://res.cloudinary.com/djgma8pik/image/upload/v1736790672/photos/cq3h3t9xty9k23so15mn.jpg"
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1736870929/photos/p99i8iduhruttq8exsbs.jpg"
       ]
     }
   ]
