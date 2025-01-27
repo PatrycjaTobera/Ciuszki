@@ -78,17 +78,43 @@ function Profile() {
 
   const handleImagePick = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permissionResult.granted) {
-      Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do galerii!');
+    const cameraPermissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (!permissionResult.granted || !cameraPermissionResult.granted) {
+      Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do galerii i aparatu!');
       return;
     }
-  
+
+    const options = [
+      { text: 'Zrób zdjęcie', onPress: handleCamera },
+      { text: 'Wybierz z galerii', onPress: handleGallery },
+      { text: 'Anuluj', style: 'cancel' },
+    ];
+
+    Alert.alert('Wybierz opcję', null, options);
+  };
+
+  const handleGallery = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images, 
       allowsEditing: true,
       quality: 1,
     });
-  
+
+    processImage(result);
+  };
+
+  const handleCamera = async () => {
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    processImage(result);
+  };
+
+  const processImage = async (result) => {
     if (!result.canceled) {
       const imageUri = result.assets[0].uri;
       try {
@@ -109,17 +135,17 @@ function Profile() {
         if (uploadResponse.status === 200) {
           const uploadedImageUrl = uploadResponse.data.secure_url; 
           setProfilePicture(uploadedImageUrl);
-  
+
           if (user) {
             try {
               user.profilePicture = uploadedImageUrl;
-  
+
               const updateResponse = await axios.put(`${BASE_URL}/users/${user.id}`, user, {
                 headers: {
                   'Content-Type': 'application/json',
                 },
               });
-  
+
               if (updateResponse.status === 200) {
                 console.log('Zaktualizowano profil użytkownika z nowym obrazem');
               } else {
@@ -137,7 +163,7 @@ function Profile() {
         Alert.alert('Błąd', 'Nie udało się przesłać obrazu. Spróbuj ponownie.');
       }
     }
-  };  
+  };
 
   if (!user) {
     return <Text>Ładowanie danych użytkownika...</Text>;
@@ -160,7 +186,7 @@ function Profile() {
           onPress={handleImagePick} 
           style={styles.button}
         >
-          Wybierz zdjęcie
+          Dodaj zdjęcie
         </Button>
       )}
       

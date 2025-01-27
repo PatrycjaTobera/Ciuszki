@@ -31,10 +31,11 @@
       "password": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
       "balance": 0,
       "about": "",
-      "profilePicture": "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+      "profilePicture": "https://res.cloudinary.com/djgma8pik/image/upload/v1737998863/photos/pt9zqsakew7zxbbvpcs5.jpg",
       "ads": [
         "24ce",
-        "db46"
+        "db46",
+        "2423"
       ],
       "orders": []
     }
@@ -69,9 +70,9 @@
       "id": "24ce",
       "title": "Szalik",
       "description": "Piękny biały szalik, bardzo ciepły, miły materiał",
-      "price": 35,
+      "price": 12,
       "category": "Akcesoria",
-      "brand": "Stradivarius ",
+      "brand": "Stradivarius",
       "images": [
         "https://res.cloudinary.com/djgma8pik/image/upload/v1736979605/photos/drj4lpio3caxjkdxau9r.jpg"
       ]
@@ -87,6 +88,20 @@
       "images": [
         "https://res.cloudinary.com/djgma8pik/image/upload/v1736980055/photos/mrywrqf5rxvhku83drel.jpg",
         "https://res.cloudinary.com/djgma8pik/image/upload/v1736980059/photos/ti4giedmidgymvgx9slc.jpg"
+      ]
+    },
+    {
+      "id": "2423",
+      "title": "Fajne mało używane spodenki",
+      "description": "Super stan, bez dziur",
+      "price": 30,
+      "category": "Odzież",
+      "brand": "Sports",
+      "size": "M",
+      "images": [
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1737979917/photos/si74vz8xpdckubr3mukz.jpg",
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1737979917/photos/mgjw1s9recswf5mr46np.jpg",
+        "https://res.cloudinary.com/djgma8pik/image/upload/v1737979918/photos/fk0awwqmv3m3jzm16ayp.jpg"
       ]
     }
   ],

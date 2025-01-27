@@ -45,54 +45,81 @@ function EditAd({ route, navigation }) {
   }, [adId]);
 
   const handleImageUpload = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permissionResult.granted) {
-      Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do galerii!');
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
+    const uploadImage = async (uri) => {
       try {
-        const uploadedImages = await Promise.all(
-          result.assets.map(async (asset) => {
-            const formData = new FormData();
-            formData.append('file', {
-              uri: asset.uri,
-              type: 'image/jpeg',
-              name: 'ad_image.jpg',
-            });
-            formData.append('upload_preset', UPLOAD_PRESET);
-
-            const response = await axios.post(CLOUDINARY_URL, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            });
-
-            if (response.status === 200) {
-              return response.data.secure_url;
-            } else {
-              throw new Error('Nie udało się przesłać obrazu.');
-            }
-          })
-        );
-
-        setAdDetails((prevDetails) => ({
-          ...prevDetails,
-          images: [...prevDetails.images, ...uploadedImages],
-        }));
+        const formData = new FormData();
+        formData.append('file', {
+          uri,
+          type: 'image/jpeg',
+          name: 'ad_image.jpg',
+        });
+        formData.append('upload_preset', UPLOAD_PRESET);
+  
+        const response = await axios.post(CLOUDINARY_URL, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+  
+        if (response.status === 200) {
+          setAdDetails((prevDetails) => ({
+            ...prevDetails,
+            images: [...prevDetails.images, response.data.secure_url],
+          }));
+        } else {
+          throw new Error('Nie udało się przesłać obrazu.');
+        }
       } catch (error) {
-        console.error('Błąd przesyłania obrazów:', error);
-        Alert.alert('Błąd', 'Nie udało się przesłać jednego lub więcej obrazów. Spróbuj ponownie.');
+        console.error('Błąd przesyłania obrazu:', error);
+        Alert.alert('Błąd', 'Nie udało się przesłać obrazu. Spróbuj ponownie.');
       }
-    }
-  };
+    };
+  
+    const options = [
+      {
+        text: 'Zrób zdjęcie',
+        onPress: async () => {
+          const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+          if (!cameraPermission.granted) {
+            Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do aparatu!');
+            return;
+          }
+  
+          const result = await ImagePicker.launchCameraAsync({
+            quality: 1,
+            allowsEditing: true,
+          });
+  
+          if (!result.canceled) {
+            uploadImage(result.assets[0].uri);
+          }
+        },
+      },
+      {
+        text: 'Wybierz z galerii',
+        onPress: async () => {
+          const galleryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (!galleryPermission.granted) {
+            Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do galerii!');
+            return;
+          }
+  
+          const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsMultipleSelection: true,
+            quality: 1,
+          });
+  
+          if (!result.canceled) {
+            result.assets.forEach((asset) => uploadImage(asset.uri));
+          }
+        },
+      },
+      { text: 'Anuluj', style: 'cancel' },
+    ];
+  
+    Alert.alert('Wybierz opcję', null, options);
+  };  
 
   const removeImage = (indexToRemove) => {
     setAdDetails((prevDetails) => ({

@@ -32,4 +32,4 @@ npm install expo-image-picker
 
 npm install axios
 
-json-server --watch db.json --static ./images --port 5000
+json-server --watch db.json --port 5000

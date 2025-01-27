@@ -53,51 +53,79 @@ function NewAd() {
   }, []);
 
   const handleImageUpload = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permissionResult.granted) {
-      Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do galerii!');
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      try {
-        const uploadedImages = await Promise.all(
-          result.assets.map(async (asset) => {
-            const formData = new FormData();
-            formData.append('file', {
-              uri: asset.uri,
-              type: 'image/jpeg',
-              name: 'ad_image.jpg',
-            });
-            formData.append('upload_preset', UPLOAD_PRESET);
-
-            const response = await axios.post(CLOUDINARY_URL, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            });
-
-            if (response.status === 200) {
-              return response.data.secure_url;
-            } else {
-              throw new Error('Nie udało się przesłać obrazu.');
-            }
-          })
-        );
-
-        setImages((prevImages) => [...prevImages, ...uploadedImages]);
-      } catch (error) {
-        console.error('Błąd przesyłania obrazów:', error);
-        Alert.alert('Błąd', 'Nie udało się przesłać jednego lub więcej obrazów. Spróbuj ponownie.');
+    const options = [
+      {
+        text: 'Zrób zdjęcie',
+        onPress: async () => {
+          const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+          if (!cameraPermission.granted) {
+            Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do aparatu!');
+            return;
+          }
+  
+          const result = await ImagePicker.launchCameraAsync({
+            quality: 1,
+            allowsEditing: true,
+          });
+  
+          if (!result.canceled) {
+            uploadImage(result.assets[0].uri);
+          }
+        },
+      },
+      {
+        text: 'Wybierz z galerii',
+        onPress: async () => {
+          const galleryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+          if (!galleryPermission.granted) {
+            Alert.alert('Permission Required', 'Wymagane jest pozwolenie na dostęp do galerii!');
+            return;
+          }
+  
+          const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsMultipleSelection: true,
+            quality: 1,
+          });
+  
+          if (!result.canceled) {
+            result.assets.forEach((asset) => uploadImage(asset.uri));
+          }
+        },
+      },
+      { text: 'Anuluj', style: 'cancel' },
+    ];
+  
+    Alert.alert('Wybierz opcję', null, options);
+  };
+  
+  const uploadImage = async (uri) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', {
+        uri,
+        type: 'image/jpeg',
+        name: 'ad_image.jpg',
+      });
+      formData.append('upload_preset', UPLOAD_PRESET);
+  
+      const response = await axios.post(CLOUDINARY_URL, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      if (response.status === 200) {
+        setImages((prevImages) => [...prevImages, response.data.secure_url]);
+      } else {
+        throw new Error('Nie udało się przesłać obrazu.');
       }
+    } catch (error) {
+      console.error('Błąd przesyłania obrazu:', error);
+      Alert.alert('Błąd', 'Nie udało się przesłać obrazu. Spróbuj ponownie.');
     }
   };
+  
 
   const handleSubmit = async () => {
     const priceValue = parseFloat(price.replace(',', '.'));
@@ -159,7 +187,10 @@ function NewAd() {
     }
   };
   
-
+  const removeImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+  
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
     if (newCategory === 'Akcesoria') {
@@ -176,7 +207,7 @@ function NewAd() {
           style={styles.button}
           onPress={handleImageUpload}
         >
-          <Text style={styles.buttonText}>Wybierz zdjęcia</Text>
+          <Text style={styles.buttonText}>Dodaj zdjęcia</Text>
         </TouchableOpacity>
         <View style={styles.imagesPreview}>
           {images.map((image, index) => (
